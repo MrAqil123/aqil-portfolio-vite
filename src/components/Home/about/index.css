@@ -1,0 +1,117 @@
+/* Styles specific to the About section */
+.about-section {
+  position: relative;
+}
+
+/* Slightly lift the image container so the badge can overlap */
+.about-img-wrapper {
+  border-radius: 1rem;
+  position: relative; /* ensure pseudo overlay covers image */
+}
+
+.badge {
+  /* allow the badge to overlap the image bottom */
+}
+
+/* Small responsive adjustments */
+@media (min-width: 768px) {
+  .badge-inner {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+}
+
+/* Make sure the Next image fits and is rounded */
+.about-img-wrapper img {
+  border-radius: 1rem;
+}
+
+/* -------------------- Animations & Hover Effects -------------------- */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 700ms cubic-bezier(.2,.9,.3,1) both;
+}
+
+/* Section fade-in/out for About (fade on enter, fade out on exit) */
+.about-fade .fade-child {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1s cubic-bezier(.2,.9,.3,1), transform 1s cubic-bezier(.2,.9,.3,1);
+  will-change: opacity, transform;
+}
+
+/* Image should fade in from the left instead of moving up */
+.about-fade .about-img-wrapper.fade-child {
+  transform: translateX(-20px);
+}
+
+/* Visible state: other children move to their resting Y position, image moves to X=0 */
+.about-fade.is-visible .fade-child {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.about-fade.is-visible .about-img-wrapper.fade-child {
+  transform: translateX(0);
+}
+
+/* simple stagger between left and right columns */
+.about-fade .about-img-wrapper.fade-child { transition-delay: 0s; }
+.about-fade .fade-child:nth-child(2) { transition-delay: 0.08s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .about-fade .fade-child { transition: none; animation: none; }
+}
+
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .about-fade .fade-child { transition: none; animation: none; }
+}
+
+/* Image hover/filter and transitions */
+.img-inner { position: relative; overflow: hidden; }
+.transition-img {
+  transition: transform 1s cubic-bezier(.2,.9,.3,1), filter 350ms ease;
+  transform-origin: center;
+  will-change: transform, filter;
+  display: block;
+}
+
+/* subtle floating animation when idle */
+@keyframes floatY {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0); }
+}
+
+.img-inner .transition-img {
+  animation: floatY 4.5s ease-in-out infinite;
+}
+
+/* Pause float and apply hover filter/transform */
+.about-img-wrapper:hover .transition-img {
+  transform: scale(1.06) rotate(-1deg);
+  filter: saturate(1.05) contrast(1.02) brightness(1.01);
+  animation-play-state: paused;
+}
+
+/* subtle overlay on hover */
+.about-img-wrapper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  transition: background 350ms ease;
+}
+.about-img-wrapper:hover::after {
+  background: linear-gradient(180deg, rgba(0,0,0,0.02), rgba(0,0,0,0.06));
+}
+
+/* end of animations */

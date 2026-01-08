@@ -1,0 +1,65 @@
+.grid-reveal-wrapper {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  --grid-spacing: 140px;
+  --grid-thickness: 5 px;
+  --grid-color: 255,255,255;
+  --spot-size: 50px;
+  --edge-radius: 12px;
+  --transition-duration: 1000ms;
+  --mask-pos: 0px 0px;
+}
+
+.grid-reveal-wrapper > * {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Responsive box utility for images: keeps image fully contained and responsive */
+.responsive-box {
+  width: 100%;
+  aspect-ratio: 4 / 3; /* default aspect; will scale on different screens */
+  min-height: 150px;
+  position: relative; /* needed for Next Image fill */
+}
+
+@media (min-width: 768px) {
+  /* on larger screens use a fixed height to visually match previous behavior */
+  .responsive-box { height: 520px; aspect-ratio: auto; }
+}
+
+/* make sure any image inside stays fully contained */
+.responsive-box img,
+.responsive-box .next-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* The fixed grid layer — covers the whole image but is only visible through mask */
+.grid-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    repeating-linear-gradient(0deg, rgba(var(--grid-color), 0.95) 0 calc(var(--grid-thickness)), transparent calc(var(--grid-thickness)) calc(var(--grid-spacing))),
+    repeating-linear-gradient(90deg, rgba(var(--grid-color), 0.95) 0 calc(var(--grid-thickness)), transparent calc(var(--grid-thickness)) calc(var(--grid-spacing)));
+  background-size: var(--grid-spacing) var(--grid-spacing);
+  background-position: 0 0; /* grid is fixed to wrapper */
+
+  /* Mask reveals only a small circular area centered at cursor */
+  -webkit-mask-image: radial-gradient(circle at var(--mask-pos), rgba(0,0,0,1) calc((var(--spot-size) / 2) - var(--edge-radius)), rgba(0,0,0,0.6) calc((var(--spot-size) / 2) - (var(--edge-radius) / 2)), rgba(0,0,0,0) calc(var(--spot-size) / 2));
+  mask-image: radial-gradient(circle at var(--mask-pos), rgba(0,0,0,1) calc((var(--spot-size) / 2) - var(--edge-radius)), rgba(0,0,0,0.6) calc((var(--spot-size) / 2) - (var(--edge-radius) / 2)), rgba(0,0,0,0) calc(var(--spot-size) / 2));
+
+  transition: opacity var(--transition-duration) ease-in-out, -webkit-mask-position 120ms linear, mask-position 120ms linear;
+  opacity: 0;
+  will-change: opacity, mask-position;
+}
+
+/* prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .grid-layer { transition: none !important; }
+}

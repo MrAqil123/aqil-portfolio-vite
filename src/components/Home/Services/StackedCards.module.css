@@ -1,0 +1,66 @@
+:root{
+  --card-width: 340px;
+  --card-height: 180px;
+  --transition: 480ms cubic-bezier(.2,.9,.2,1);
+}
+
+.section{
+  padding: 1.25rem;
+}
+
+.heading{
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.viewport{
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.stack{
+  position: relative;
+  height: calc(var(--card-height) + 160px);
+  display: block;
+  /* center */
+  margin: 0 auto;
+}
+
+.card{
+  --shadow: 0 10px 30px rgba(2,6,23,0.12);
+  width: var(--card-width);
+  height: var(--card-height);
+  border-radius: 12px;
+  position: absolute;
+  left: 50%;
+  transform-origin: center top;
+  transform: translateX(-50%);
+  box-shadow: var(--shadow);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+  transition: transform var(--transition), box-shadow var(--transition), width var(--transition);
+  will-change: transform;
+}
+
+.card:focus{
+  outline: none;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.22);
+}
+
+.cardTitle{
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-align: center;
+  padding: 0 1rem;
+}
+
+/* Make layout responsive */
+@media (max-width: 480px){
+  :root{ --card-width: 280px; --card-height: 150px; }
+}

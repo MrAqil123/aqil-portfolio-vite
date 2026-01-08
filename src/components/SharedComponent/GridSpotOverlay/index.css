@@ -1,0 +1,29 @@
+.grid-spot-wrapper {
+  position: relative;
+  display: block;
+  overflow: hidden;
+}
+
+.grid-spot-wrapper > * {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.grid-spot {
+  position: absolute;
+  pointer-events: none;
+  transform: translateZ(0);
+  border-radius: 8px;
+  /* soft inner edge via mask applied inline; fallback blur to soften edges on older browsers */
+  filter: drop-shadow(0 0 2px rgba(0,0,0,0.02));
+  opacity: 0;
+  transition: opacity 220ms ease, transform 80ms linear;
+  will-change: transform, opacity;
+  box-sizing: border-box;
+  /* default values can be overridden inline by styles set in the component */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .grid-spot { transition: none !important; }
+}

@@ -1,0 +1,122 @@
+ :root{
+  --card-gap: 3rem;
+  --card-radius: 14px;
+}
+
+.section{
+  padding: 2.25rem;
+}
+.heading{
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+/* spacer that provides scroll space to drive animation (height set in JS) */
+.stackSpacer{
+  width: 100%;
+  position: relative;
+}
+
+/* sticky wrapper that pins the stack to the viewport */
+.stickyWrap{
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none; /* interactions are managed on active card via JS */
+}
+
+/* stackWrap holds stacked cards and sets perspective */
+.stackWrap{
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+  height: 70vh; /* visual frame for stacked cards */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1400px;
+  transform-style: preserve-3d;
+}
+
+.card{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, 8vh) scale(0.96) rotateX(12deg);
+  transform-origin: center center;
+  width: min(1280px, 94%);
+  height: calc(70vh);
+  border-radius: var(--card-radius);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2.25rem;
+  box-sizing: border-box;
+  color: #0f172a;
+  box-shadow: 0 10px 40px rgba(2,6,23,0.08);
+  will-change: transform, opacity;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.cardInner{
+  text-align: center;
+  max-width: 780px;
+}
+.icon{
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.title{
+  font-size: 1.6rem;
+  font-weight: 800;
+  margin-bottom: 0.6rem;
+  color: white;
+}
+.imagePath {
+   background: #4b9fea; clip-path: path("M612,21.69v748.61c0,11.98-9.71,21.69-21.69,21.69H21.69C9.71,792,0,782.29,0,770.31V208.09c0-14.16,13.36-24.55,27.07-21.01,38.22,9.88,83.2,2.97,126.56-29.09,1.66-1.23,3.14-2.7,4.36-4.36,32.06-43.36,38.97-88.34,29.09-126.56C183.54,13.36,193.93,0,208.09,0h382.21c11.98,0,21.69,9.71,21.69,21.69Z");
+}
+@media (width <= 1200px)   {
+  .imagePath{
+    clip-path: none;
+  }
+}
+.desc{
+  max-width: 720px;
+  margin: 0 auto;
+  opacity: .8;
+  color: white;
+  font-size: 1rem;
+  line-height: 1.5;
+
+}
+
+/* reduced motion fallback */
+@media (prefers-reduced-motion: reduce){
+  .card{
+    transition: none !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transform: translate(-50%, 0px) scale(1) rotateX(0deg) !important;
+  }
+  .stickyWrap{position:relative}
+}
+
+/* responsive */
+@media (max-width: 640px){
+  .card{
+    width: min(640px, 94%);
+    padding: 1.25rem;
+    height: calc(70vh);
+  }
+  .title{font-size:1.3rem}
+}
