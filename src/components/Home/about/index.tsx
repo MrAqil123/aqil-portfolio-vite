@@ -71,10 +71,10 @@ const About: React.FC = () => {
               />
             </div>
             <div className='flex justify-start'>
-            <button onClick={() => window.open('/Aqileftekhary.pdf')} className="inline-flex items-center gap-3 bg-light-mode-a hover:bg-dark-mode-a text-white px-4 py-2 sm:rounded-xl xl:rounded-full font-medium transition-image">
+            <a href='../../../../public/images/Aqileftekhary.pdf'  className="inline-flex items-center gap-3 bg-light-mode-a hover:bg-dark-mode-a text-white px-4 py-2 sm:rounded-xl xl:rounded-full font-medium transition-image">
               Download CV
               <Icon icon={"ci:download"} className="text-white text-2xl"/>
-            </button>
+            </a>
             <span className=' mx-2 px-6 underline decoration-2 decoration-dotted underline-offset-6 py-2'>
             <a href="#contact" className='text-light-mode-a font-bold '>Contact Now</a>
             </span></div>
