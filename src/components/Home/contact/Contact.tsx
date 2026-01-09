@@ -13,7 +13,6 @@
       setFormData((prev) => ({ ...prev, [field]: e.target.value }));
     };
 
-  // ✅ FIX: env variables (Vite)
   const Services_ID = import.meta.env.VITE_PUBLIC_EMAILJS_SERVICE_ID!;
   const Template_ID = import.meta.env.VITE_PUBLIC_EMAILJS_TEMPLATE_ID!;
   const Public_KEY = import.meta.env.VITE_PUBLIC_EMAILJS_PUBLIC_KEY!;
@@ -27,7 +26,6 @@
     emailjs
       .sendForm(Services_ID, Template_ID, formRef.current, Public_KEY)
       .then(() => {
-        // ✅ FIX: alert backup
         const _prevAlert = window.alert;
         window.alert = () => {};
 
