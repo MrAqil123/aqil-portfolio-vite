@@ -15,14 +15,14 @@ const Portfolio = () => {
           </span>
         </div>
         <h2
-          className='sm:text-4xl text-[28px] leading-tight font-bold text-midnight_text text-center pt-7 pb-4 md:w-4/6 w-full m-auto dark:text-white'
+          className='sm:text-4xl text-[28px] leading-tight font-bold text-midnight_text text-center pt-7 pb-4 md:w-4/6 w-full m-auto text-white'
           data-aos='fade-left'
           data-aos-delay='500'
           data-aos-duration='1000'>
           My Works
         </h2>
         <div className='pb-16  inline-flex' id='portfolio-section'>
-          <p className=' w-[90vw] font-normal text-grey dark:text-white/90'>
+          <p className=' w-[90vw] font-normal text-grey text-white/90'>
             Here you can see some of the projects I’ve worked on. Each one shows a bit of my journey, what I’ve learned, and how I enjoy turning ideas into real, usable things. I’m always exploring new ways to grow, improve, and create better experiences.
           </p>
         </div>

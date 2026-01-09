@@ -28,7 +28,7 @@ const HeaderLink: React.FC<{ item: HeaderItem }> = ({ item }) => {
       {/* در React Router از to استفاده می‌شود نه href */}
       <Link 
         to={item.href} 
-        className={`decoration-2 underline-offset-4 duration-500 text-base flex py-2 font-normal hover:underline hover:decoration-dotted text-black dark:text-gray-200 
+        className={`decoration-2 underline-offset-4 duration-500 text-base flex py-2 font-normal hover:underline hover:decoration-dotted  text-gray-200 
           ${path === item.href ? 'text-primary dark:text-primary!' : ''} 
           ${path.startsWith("/blog") && item.href === "/blog" ? "text-primary!" : ""} 
           ${path.startsWith("/portfolio") && item.href === "/portfolio" ? "text-primary! dark:text-primary!" : ""}`}
