@@ -5,6 +5,7 @@ import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css' 
 import { portfolioinfo } from '../../../../app/api/data'
 import { Icon } from '@iconify/react/dist/iconify.js'
+import { useMediaQuery } from 'react-responsive';
 const Slider = (SliderComponent as any).default ||  SliderComponent;
 
 
@@ -12,14 +13,17 @@ const PortfolioCard = () => {
   
   const [likedId, setLikedId] = useState<number | null>(null)
     const [fullscreenImage, setFullscreenImage] = useState<string | null>(null)
-
+  const isDesktopOrLaptop = useMediaQuery({
+    query: '(min-width: 1440px)'
+  });
+  
   const settings = {
   autoplay: true,
   dots: true,
   arrows: false,
   infinite: true,
   speed: 500, // سرعت حرکت اسلاید
-  slidesToShow: 1,
+  slidesToShow: 4,
   slidesToScroll: 1,
   responsive: [
     {
@@ -60,12 +64,16 @@ const PortfolioCard = () => {
                   width={1200}
                   height={600}
                   style={{ width: '100%', height: '50%' }}
+                  onMouseOver={() =>{
+                  
+                  }}
                   className="group-hover:scale-110   transition-transform duration-500"
                   />
-                     <div key={index} className="group  cursor-pointer absolute left-10 top-10 scale-140 xl:scale-100 xl:left-4 xl:top-2 " onClick={() => setFullscreenImage(item.image)}>
-                  <Icon icon="mdi:fullscreen"  width="30" height="30" className="text-white "/>
-                  </div>
-                  <div className=' xl:scale-100 scale-140 absolute top-10 right-10 xl:top-2 xl:right-4 '>
+                  {isDesktopOrLaptop &&    <div key={index} className="group  cursor-pointer absolute left-10 top-10 scale-140 xl:scale-100 xl:left-4 xl:top-2 " onClick={() => setFullscreenImage(item.image)}>
+                  <Icon icon="mdi:fullscreen"  width={'3vw'}  className="text-white "/>
+                  </div>}
+                  
+                  {isDesktopOrLaptop &&  <div className=' xl:scale-100 scale-140 absolute top-10 right-10 xl:top-2 xl:right-4 '>
                    <button
     onClick={() =>
       setLikedId(likedId === item.id ? null : item.id)
@@ -77,16 +85,16 @@ const PortfolioCard = () => {
           ? 'mdi:cards-heart'
           : 'mdi:cards-heart-outline'
       }
-      width="30"
-      height="30"
-      className={`transition-all duration-300 ${
+      width={'3vw'}
+      className={`transition-all  duration-300 ${
         likedId === item.id
           ? 'text-red-500 scale-110'
           : 'text-white'
       }`}
     />
-  </button>
-                  </div>
+</button>
+</div>}
+                 
                
               </div>
               <div className="p-4 bg-gray-900  rounded-b-lg transform group-hover:-translate-y-2 transition-all duration-500">
