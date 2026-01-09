@@ -34,7 +34,7 @@ const About: React.FC = () => {
           <div className="relative">
             <div className="about-img-wrapper rounded-2xl overflow-hidden shadow-xl fade-child" style={{ animationDelay: '0.08s' }}>
               <GridRevealOverlay spacing={14} thickness={1} color="255,255,255" spotSize={90} edgeRadius={62} transitionDuration={1000} className="w-full 2xl:h-[8  00px] h-[420px] md:h-[580px]">
-                <div className="relative w-full h-full">
+                <div className=" relative w-full h-full">
                   <img
                   width={100+'%'}
                     src="https://i.ibb.co/CK5k3LzR/aqil.png" 

@@ -21,7 +21,6 @@ const GridRevealOverlay: React.FC<Props> = ({
   spotSize = 50,
   edgeRadius = 12,
   transitionDuration = 1000,
-  touchHideDelay = 800,
   className = '',
   children,
 }) => {
@@ -73,31 +72,6 @@ const GridRevealOverlay: React.FC<Props> = ({
       window.clearTimeout(touchTimeoutRef.current)
       touchTimeoutRef.current = null
     }
-  }
-
-  function onTouchStart(e: React.TouchEvent) {
-    const t = e.touches[0]
-    if (!t) return
-    updatePositionFromEvent(t.clientX, t.clientY)
-    setVisible(true)
-    if (touchTimeoutRef.current) {
-      window.clearTimeout(touchTimeoutRef.current)
-      touchTimeoutRef.current = null
-    }
-  }
-
-  function onTouchMove(e: React.TouchEvent) {
-    const t = e.touches[0]
-    if (!t) return
-    updatePositionFromEvent(t.clientX, t.clientY)
-  }
-
-  function onTouchEnd() {
-    if (touchTimeoutRef.current) window.clearTimeout(touchTimeoutRef.current)
-    touchTimeoutRef.current = window.setTimeout(() => {
-      setVisible(false)
-      touchTimeoutRef.current = null
-    }, touchHideDelay)
   }
 
   const style: React.CSSProperties = {
