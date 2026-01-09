@@ -19,7 +19,7 @@ const PortfolioCard = () => {
   arrows: false,
   infinite: true,
   speed: 500, // سرعت حرکت اسلاید
-  slidesToShow: 3,
+  slidesToShow: 1,
   slidesToScroll: 1,
   responsive: [
     {

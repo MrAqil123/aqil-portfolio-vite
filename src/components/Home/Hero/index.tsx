@@ -6,7 +6,7 @@ const Hero = () => {
   return (
     <section className={`relative md:pt-30 pt-10 min-h-[100vh]  overflow-hidden  bg-cover text-white 
    bg-dark-mode-a`}>
-    <img src={`${'https://i.ibb.co/TMQQyC23/hero-section.jpg'}`} className='absolute scale-y-[-1] top-0 right-0 w-full h-full' alt="no image" />
+    <img src={`${'https://i.ibb.co/TMQQyC23/hero-section.jpg'}`} className='absolute   scale-y-[-1] top-0 right-0 w-full h-full' alt="no image" />
       <div className='container mx-auto max-w-6xl px-4 grid grid-cols-12 gap-4 relative z-10'>
         <div
           className=' md:col-span-6 col-span-12 p-4 md:px-4 px-0 space-y-4 flex flex-col items-start justify-center'
@@ -48,17 +48,16 @@ const Hero = () => {
           </a>
           <br/>
         </div>
-
-          <GridRevealOverlay spacing={14} thickness={1} color="255,255,255" spotSize={90} edgeRadius={62} transitionDuration={2000} className='xl:col-span-5 sm:col-span-8 hover:shadow-2xl shadow-purple-500/90 transition-all duration-[.4s] translate-x-30 rounded-full'>
-          <img className="translate-y-10 scale-120"
+          <GridRevealOverlay spacing={14} thickness={1} color="255,255,255" spotSize={90} edgeRadius={62} transitionDuration={2000} className='xl:col-span-5 sm:col-span-8 hover:shadow-2xl shadow-purple-500/90 transition-all duration-[.4s] xl:translate-x-30 rounded-full  xl:h-full xl:w-[25vw] w-[80vw]'>
+          <img className="translate-y-10  scale-120"
             src='https://i.ibb.co/cPYn0CY/profile.png'
             alt='hero-image'
-            width={10}
+            width={100}
             height={150}
             style={{ width: '100%', height: 'auto'}}
           />
           </GridRevealOverlay>
-      </div>  
+</div>
     </section>
   )
 }

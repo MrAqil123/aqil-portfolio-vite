@@ -73,7 +73,7 @@ export default function ServicesStack() {
 
         if (local > 0 && local <= 1) {
           const scale = 0.96 + 0.07 * local;
-          const translateY = window.innerHeight * 0.08 * (1 - local);
+          const translateY = (window.innerHeight+100) * 0.08 * (1 - local);
           const rotateX = 12 * (1 - local);
           const opacity = local;
           el.style.opacity = String(opacity);
@@ -136,17 +136,17 @@ export default function ServicesStack() {
               <article
                 ref={(el) => { cardsRef.current[i] = el }}
                 key={svc.id}
-                className={`${styles.card} flex xl:flex-row sm:flex-col gap-6   bg-light-mode-a xl:-my-14 -my-10`}
+                className={`${styles.card} flex xl:flex-row sm:flex-col gap-6   bg-light-mode-a xl:-my-44 -my-44 flex-col`}
                 role="article"
                 aria-label={svc.title}
               >
                 <div className="sm:h-fit xl:h-full w-full">
                   {}
-                <div className={`marker-poiner xl:h-full  xl:w-full rounded-2xl xl:translate-y-0 sm:-translate-y-10 sm:h-42 [clip-path:none]  sm:w-full  bg-center    ${styles.imagePath} `} style={{backgroundColor: "#fff", backgroundImage: `url(${svc.Img})`, backgroundPosition: 'center' , backgroundSize : 80+"%" , backgroundRepeat: 'no-repeat'}}></div>
+                <div className={`marker-poiner xl:h-full  xl:w-full rounded-2xl xl:translate-y-0  sm:-translate-y-10 h-42 sm:h-42 [clip-path:none]  sm:w-full  bg-center    ${styles.imagePath} `} style={{backgroundColor: "#fff", backgroundImage: `url(${svc.Img})`, backgroundPosition: 'center' , backgroundSize : 80+"%" , backgroundRepeat: 'no-repeat'}}></div>
 
-                  <div className={`${styles.icon}  w-fit xl:bg-white  xl:text-light-mode-a bg-light-mode-a  rounded-full   absolute xl:top-6 xl:left-4 -top-2  left-2 xl:p-16 sm:p-4 shadow-dark-mode-a/90  `}>{svc.icon}</div>
+                  <div className={`${styles.icon}  w-fit xl:bg-white xl:text-light-mode-a bg-light-mode-a  rounded-full   absolute xl:top-6 xl:left-4 sm:top-4   top-6 p-2  sm:left-6 xl:p-16 sm:p-4 shadow-dark-mode-a/90  `}>{svc.icon}</div>
                   </div>
-                <div className={`${styles.cardInner} sm:-translate-y-10`}>
+                <div className={`${styles.cardInner} sm:-translate-y-10 `}>
                   <h3 className={`${styles.title} `}>{svc.title}</h3>
                   <p className={styles.desc}>{svc.desc}</p>
                 </div>
