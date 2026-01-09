@@ -5,6 +5,7 @@ import { headerData } from '../Header/Navigation/menuData'
 import Logo from './Logo'
 import HeaderLink from '../Header/Navigation/HeaderLink'
 import MobileHeaderLink from '../Header/Navigation/MobileHeaderLink'
+import '@tailwindcss/vite';
 
 const Header: React.FC = () => {
 
