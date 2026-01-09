@@ -18,8 +18,8 @@ export default function Skills() {
   </div>
 
     {/* Programming Languages */}
-    <section className="py-8 border-t-4 border-white/20    relative px-8 mt-16  ">
-      <h2 className="bg-light-mode-a z-20  py-4 px-8 text-xl md:text-2xl font-[roboto] text-white mb-6 absolute -top-10">Programming Languages</h2>
+    <section className="py-8 border-t-4 border-white/20 relative px-8 mt-16  ">
+      <h2 className="bg-light-mode-a z-20 w-fit py-4 px-4 text-xl md:text-2xl font-[roboto] text-white mb-6 absolute -top-10">Programming Languages</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2  md:grid-cols-3 lg:grid-cols-4 gap-6 mt-10">
         {programmingLanguages.map((skill) => (
           <ScrollAnimation2 key={skill.title}>
