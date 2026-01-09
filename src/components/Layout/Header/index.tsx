@@ -1,53 +1,42 @@
-'use client'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
 import { useContext, useEffect, useRef, useState } from 'react'
+import { Link, useLocation } from 'react-router-dom' 
+import { Icon } from '@iconify/react'
 import { headerData } from '../Header/Navigation/menuData'
 import Logo from './Logo'
 import HeaderLink from '../Header/Navigation/HeaderLink'
 import MobileHeaderLink from '../Header/Navigation/MobileHeaderLink'
-import { useTheme } from 'next-themes'
-import { Icon } from '@iconify/react/dist/iconify.js'
-import AuthDialogContext from '@/app/context/AuthDialogContext'
+import AuthDialogContext from '../../../app/context/AuthDialogContext'
 
 const Header: React.FC = () => {
-  const pathUrl = usePathname()
-  const { theme, setTheme } = useTheme()
+  const location = useLocation()
+  const pathUrl = location.pathname;
+
 
   const [navbarOpen, setNavbarOpen] = useState(false)
   const [sticky, setSticky] = useState(false)
-  const [fixed , serFixed] = useState(true)
   const [isSignInOpen, setIsSignInOpen] = useState(false)
   const [isSignUpOpen, setIsSignUpOpen] = useState(false)
-  const [hidden , setHidden ] = useState(false);
 
-  const navbarRef = useRef<HTMLDivElement>(null)
   const signInRef = useRef<HTMLDivElement>(null)
   const signUpRef = useRef<HTMLDivElement>(null)
   const mobileMenuRef = useRef<HTMLDivElement>(null)
 
+  // مدیریت چسبنده شدن هدر در اسکرول
   const handleScroll = () => {
     setSticky(window.scrollY >= 160)
   }
 
+  // بستن منوها هنگام کلیک به بیرون
   const handleClickOutside = (event: MouseEvent) => {
-    if (
-      signInRef.current &&
-      !signInRef.current.contains(event.target as Node)
-    ) {
+    const target = event.target as Node;
+    
+    if (signInRef.current && !signInRef.current.contains(target)) {
       setIsSignInOpen(false)
     }
-    if (
-      signUpRef.current &&
-      !signUpRef.current.contains(event.target as Node)
-    ) {
+    if (signUpRef.current && !signUpRef.current.contains(target)) {
       setIsSignUpOpen(false)
     }
-    if (
-      mobileMenuRef.current &&
-      !mobileMenuRef.current.contains(event.target as Node) &&
-      navbarOpen
-    ) {
+    if (mobileMenuRef.current && !mobileMenuRef.current.contains(target) && navbarOpen) {
       setNavbarOpen(false)
     }
   }
@@ -61,8 +50,7 @@ const Header: React.FC = () => {
     }
   }, [navbarOpen, isSignInOpen, isSignUpOpen])
 
-  const path = usePathname()
-
+  // جلوگیری از اسکرول بدنه هنگام باز بودن منو
   useEffect(() => {
     if (isSignInOpen || isSignUpOpen || navbarOpen) {
       document.body.style.overflow = 'hidden'
@@ -75,105 +63,60 @@ const Header: React.FC = () => {
 
   return (
     <header
-      className={`fixed h-24  top-0 py-1 z-50  w-full dark:bg-transparent transition-all ${
+      className={`fixed h-24 top-0 py-1 z-50 w-full transition-all duration-300 ${
         sticky
-          ? 'shadow-lg  mx-5  dark:shadow-dark-md dark:bg-light-mode-a! dark:inline dark:mx-auto'
-          : 'shadow-none  '
+          ? 'shadow-lg bg-light-mode-a backdrop-blur-md '
+          : 'shadow-none bg-transparent'
       }`}>
-      <div className='container  mx-auto max-w-6xl flex items-center justify-between p-6'>
-        <Logo />
-        <nav className='hidden  lg:flex grow items-center justify-center gap-6'>
+      <div className='container mx-auto max-w-6xl flex items-center justify-between p-6'>
+        {/* در Vite از Link به جای تگ a استفاده می‌کنیم */}
+        <a href="/">
+            <Logo />
+        </a>
+        
+        <nav className='hidden lg:flex grow  items-center justify-center gap-6'>
           {headerData.map((item, index) => (
             <HeaderLink key={index} item={item} />
           ))}
         </nav>
+
         <div className='flex items-center gap-4'>
-          
-         
-          {isSignInOpen && (
-            <div
-              ref={signInRef}
-              className='fixed border  top-0 m-0! left-0 w-full h-full bg-black/50 flex items-center justify-center z-50'>
-              <div className='relative mx-auto w-full max-w-md overflow-hidden rounded-lg bg-white px-8 py-14 text-center dark:bg-darklight'>
-                <button
-                  onClick={() => setIsSignInOpen(false)}
-                  className=' hover:bg-gray-200 dark:hover:bg-gray-800 p-1 rounded-full absolute -top-5 -right-3 mr-8 mt-8'
-                  aria-label='Close Sign In Modal'>
-                  <Icon
-                    icon='ic:round-close'
-                    className='text-2xl dark:text-white'
-                  />
-                </button>
-            
-              </div>
-            </div>
-          )}
+
           <button
-            onClick={() => (
-              setNavbarOpen(!navbarOpen)
-            )}
+            onClick={() => setNavbarOpen(!navbarOpen)}
             className='block lg:hidden p-2 rounded-lg'
-            aria-label='Toggle mobile menu' id='btn-close'>
-            <span className='block w-6 h-0.5  dark:bg-white'></span>
-            <span className='block w-6 h-0.5  dark:bg-white mt-1.5'></span>
-            <span className='block w-6 h-0.5  dark:bg-white mt-1.5'></span>
+            aria-label='Toggle mobile menu'>
+            <div className="space-y-1.5">
+                <span className={`block w-7 h-[4px] bg-white   transition-all ${navbarOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
+                <span className={`block w-7 h-[4px] bg-white  ${navbarOpen ? 'opacity-0' : ''}`}></span>
+                <span className={`block w-7 h-[4px] bg-white  transition-all ${navbarOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
+            </div>
           </button>
         </div>
       </div>
+
+      {/* Mobile Menu Overlay */}
       {navbarOpen && (
-        <div className='fixed top-0 left-0 w-full h-full bg-black/50 z-40' />
+        <div className='fixed inset-0 bg-black/50 backdrop-blur-sm z-40 ' onClick={() => setNavbarOpen(false)} />
       )}
 
+      {/* Mobile Menu Sidebar */}
       <div
         ref={mobileMenuRef}
-        className={`lg:hidden fixed top-0 right-0 h-full w-full  dark:bg-dark-mode-a shadow-lg transform transition-transform duration-300 max-w-xs ${
+        className={`lg:hidden fixed top-0 right-0  w-full bg-light-mode-a/80 h-[100vh]  shadow-2xl transform transition-transform duration-300 ease-in-out max-w-xs ${
           navbarOpen ? 'translate-x-0' : 'translate-x-full'
         } z-50`}>
-        <div className='flex items-center justify-between p-4'>
-          <h2 className='text-lg font-bold text-midnight_text dark:text-white'>
-            Menu
-          </h2>
-          <button
-            onClick={() => setNavbarOpen(false)}
-            aria-label='Close mobile menu'>
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              width='24'
-              height='24'
-              viewBox='0 0 24 24'
-              className='dark:text-white'>
-              <path
-                fill='none'
-                stroke='currentColor'
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                strokeWidth='2'
-                d='M6 18L18 6M6 6l12 12'
-              />
-            </svg>
+        <div className='flex items-center justify-between p-6 border-b border-white/30'>
+          <h2 className='text-lg font-bold dark:text-white'>Menu</h2>
+          <button onClick={() => setNavbarOpen(false)} className="p-1">
+            <Icon icon="material-symbols:close-rounded" width="34" className="text-white" />
           </button>
         </div>
-        <nav className='flex flex-col items-start p-4'>
+        <nav className='flex flex-col items-start p-6 gap-4'>
           {headerData.map((item, index) => (
-            <MobileHeaderLink key={index} item={item} />
+              <MobileHeaderLink key={index} item={item}  />
           ))}
-          <div className='mt-4 flex flex-col gap-4 w-full'>
-          </div>
         </nav>
-      </div>
-      {/* Successsful Login Alert */}
-      <div
-        className={`fixed top-6 end-1/2 translate-x-1/2 z-50 ${
-          authDialog?.isSuccessDialogOpen == true ? 'block' : 'hidden'
-        }`}>
-        
-      </div>
-      {/* User registration Alert */}
-      <div
-        className={`fixed top-6 end-1/2 translate-x-1/2 z-50 ${
-          authDialog?.isUserRegistered == true ? 'block' : 'hidden'
-        }`}>
-          
       </div>
     </header>
   )

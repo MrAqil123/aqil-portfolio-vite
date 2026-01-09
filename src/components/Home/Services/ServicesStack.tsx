@@ -1,12 +1,11 @@
 "use client";
 import React, { useEffect, useRef } from "react";
-import services from "@/app/api/servicesData";
+import services from "../../../app/api/servicesData";
 import styles from "./ServicesStack.module.css";
 
 // respects prefers-reduced-motion
 
 export default function ServicesStack() {
-  const NumberTest = [1,2,3,4,5]
   const sectionRef = useRef<HTMLElement | null>(null);
   const spacerRef = useRef<HTMLDivElement | null>(null);
   const stickyRef = useRef<HTMLDivElement | null>(null);
@@ -125,12 +124,12 @@ export default function ServicesStack() {
 
   return (
     <section ref={sectionRef} aria-labelledby="services-title" id="servicesSection" className={` ${styles.section}`}>
-      <h2 id="services-title" className={`${styles.heading}  text-center w-fit m-auto` }>
+      <h2  className={`${styles.heading}  text-center text-white w-fit m-auto` }>
         What I Can Do For You
       </h2>
-      <p className={`mx-auto w-[900px] text-gray-400`}>I help improve and build modern web interfaces by fixing bugs, developing responsive front-end solutions, and redesigning existing websites. My focus is on clean code, smooth user experience, and turning ideas into fast, functional, and visually polished products.</p>
+      <p className={`mx-auto w-[90vw] text-gray-400`}>I help improve and build modern web interfaces by fixing bugs, developing responsive front-end solutions, and redesigning existing websites. My focus is on clean code, smooth user experience, and turning ideas into fast, functional, and visually polished products.</p>
 
-      <div ref={spacerRef} className={styles.stackSpacer}>
+      <div id="services-title" ref={spacerRef} className={styles.stackSpacer}>
         <div ref={stickyRef} className={styles.stickyWrap}>
           <div className={`${styles.stackWrap}`}>
             {services.map((svc, i) => (
@@ -145,7 +144,7 @@ export default function ServicesStack() {
                   {}
                 <div className={`marker-poiner xl:h-full  xl:w-full rounded-2xl xl:translate-y-0 sm:-translate-y-10 sm:h-42 [clip-path:none]  sm:w-full  bg-center    ${styles.imagePath} `} style={{backgroundColor: "#fff", backgroundImage: `url(${svc.Img})`, backgroundPosition: 'center' , backgroundSize : 80+"%" , backgroundRepeat: 'no-repeat'}}></div>
 
-                  <div className={`${styles.icon}  w-fit xl:bg-white  xl:text-light-mode-a bg-light-mode-a  rounded-full   absolute sm:top-4 sm:left-4 xl:p-16 sm:p-2 shadow-dark-mode-a/90  `}>{svc.icon}</div>
+                  <div className={`${styles.icon}  w-fit xl:bg-white  xl:text-light-mode-a bg-light-mode-a  rounded-full   absolute xl:top-6 xl:left-4 -top-2  left-2 xl:p-16 sm:p-4 shadow-dark-mode-a/90  `}>{svc.icon}</div>
                   </div>
                 <div className={`${styles.cardInner} sm:-translate-y-10`}>
                   <h3 className={`${styles.title} `}>{svc.title}</h3>

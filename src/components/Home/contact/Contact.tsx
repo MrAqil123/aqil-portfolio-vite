@@ -1,39 +1,42 @@
   "use client";
   import React, { useRef, useState } from "react";
-  import { FaFacebookF, FaGithub, FaLinkedinIn, FaInstagram } from "react-icons/fa";
   import emailjs from "@emailjs/browser"
-import { Icon } from "@iconify/react/dist/iconify.js";
+  import { Icon } from "@iconify/react/dist/iconify.js";
   const ContactME = () => {
-    const [formData, setFormData] = useState({ name: "", email: "", message: "" });
-    const [loading, setLoading] = useState(false);
-const formRef = useRef<HTMLFormElement>(null);
+     const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [loading, setLoading] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
 
-    const handleInputChange = (field: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      setFormData(prev => ({ ...prev, [field]: e.target.value }));
+  const handleInputChange =
+    (field: string) =>
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      setFormData((prev) => ({ ...prev, [field]: e.target.value }));
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+  // ✅ FIX: env variables (Vite)
+  const Services_ID = import.meta.env.VITE_PUBLIC_EMAILJS_SERVICE_ID!;
+  const Template_ID = import.meta.env.VITE_PUBLIC_EMAILJS_TEMPLATE_ID!;
+  const Public_KEY = import.meta.env.VITE_PUBLIC_EMAILJS_PUBLIC_KEY!;
+
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formRef.current) return;
 
     setLoading(true);
 
-    emailjs.sendForm(
-        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
-        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
-        formRef.current,
-        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
-      )
+    emailjs
+      .sendForm(Services_ID, Template_ID, formRef.current, Public_KEY)
       .then(() => {
-        // replace default alert with a temporary no-op, then show a custom modal
+        // ✅ FIX: alert backup
         const _prevAlert = window.alert;
         window.alert = () => {};
 
-        /* create modal */
+        formRef.current?.reset();
+
         const modal = document.createElement("div");
         modal.innerHTML = `
           <div style="position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:9999">
-            <div id="copilot-overlay" style="position:absolute;inset:0;background:rgba(2,6,23,0.6);backdrop-filter:blur(4px)"></div>
+            <div id="Ab2-overlay" style="position:absolute;inset:0;background:rgba(2,6,23,0.6);backdrop-filter:blur(4px)"></div>
             <div role="dialog" aria-modal="true" style="position:relative;z-index:10000;max-width:420px;width:90%;background:#071226;color:#fff;border-radius:12px;padding:18px;box-shadow:0 12px 40px rgba(2,6,23,0.6);font-family:system-ui">
               <div style="display:flex;gap:12px;align-items:center">
                 <div style="width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,#06b6d4,#0ea5e9);display:flex;align-items:center;justify-content:center;font-weight:700">✓</div>
@@ -55,13 +58,15 @@ const formRef = useRef<HTMLFormElement>(null);
           window.alert = _prevAlert;
         };
 
-        modal.querySelector("#copilot-overlay")?.addEventListener("click", cleanup);
-        modal.querySelector("#copilot-close")?.addEventListener("click", cleanup);
+        modal
+          .querySelector("#Ab2-overlay")
+          ?.addEventListener("click", cleanup);
+        modal
+          .querySelector("#copilot-close")
+          ?.addEventListener("click", cleanup);
 
-        // auto-close after 4.5s
         setTimeout(cleanup, 4500);
         alert("Message sent successfully!");
-        formRef.current?.reset();
       })
       .catch(() => {
         alert("Failed to send message. Please try again.");
@@ -88,10 +93,10 @@ const formRef = useRef<HTMLFormElement>(null);
                   </div>
 
                   <div className="flex items-center gap-4">
-                    <a aria-label="Facebook" href="https://www.facebook.com/share/17HG9TK76r/" className="text-[#45727D] hover:text-blue-700/90 text-2 xl"><FaFacebookF /></a>
-                    <a aria-label="GitHub" href="#" className="text-[#45727D] hover:text-gray-900 text-2xl"><FaGithub /></a>
-                    <a aria-label="LinkedIn" href="#" className="text-[#45727D] hover:text-blue-500  text-2xl"><FaLinkedinIn /></a>
-                    <a aria-label="Instagram" href="https://www.instagram.com/aqil_ey2024?igsh=MW10dXdoajhvODN6Yw==" className="text-[#45727D] hover:text-purple-600 text-2xl"><FaInstagram /></a>
+                    <a aria-label="Facebook" href="https://www.facebook.com/share/17HG9TK76r/" className="text-[#45727D] hover:text-blue-700/90 text-2 xl"><Icon icon='ci:facebook' width={30}/></a>
+                    <a aria-label="GitHub" href="#" className="text-[#45727D] hover:text-gray-900 text-2xl"><Icon icon='ci:github' width={30}/></a>
+                    <a aria-label="LinkedIn" href="#" className="text-[#45727D] hover:text-blue-500  text-2xl"><Icon icon='ci:linkedin' width={30} /></a>
+                    <a aria-label="Instagram" href="https://www.instagram.com/aqil_ey2024?igsh=MW10dXdoajhvODN6Yw==" className="text-[#45727D] hover:text-purple-600 text-2xl"><Icon icon='ci:instagram' width={30} /></a>
                   </div>
                 </div>
 
@@ -108,7 +113,7 @@ const formRef = useRef<HTMLFormElement>(null);
                 <div className="flex h-[96px] items-center w-full p-6 rounded-2xl bg-[#1B525E]">
                   <div className="flex-1 flex items-start gap-4">
                     <div className="w-12 h-12 bg-[#45727d] rounded-sm grid grid-col-3 justify-center content-center">
-                      <Icon icon="ic:email" className="w-10 h-10 " />
+                      <Icon icon="ic:email" className="w-10 h-10 " color="white" />
                       </div>
                     <div>
                       <h3 className="text-lg font-bold text-white">My Email</h3>
@@ -122,7 +127,7 @@ const formRef = useRef<HTMLFormElement>(null);
                 <div className="flex items-center h-[96px] w-full p-6 rounded-2xl bg-[#1B525E]">
                   <div className="flex-1 flex items-start gap-4">
                     <div className="w-12 h-12 bg-[#45727d] rounded-sm grid content-center grid-col-3 justify-center">
-                      <Icon icon="ic:phone" className="w-10 h-10" />
+                      <Icon icon="ic:phone" className="w-10 h-10" color="white"/>
                       </div>
                     <div>
                       <h3 className="text-lg font-bold text-white">Call me</h3>
@@ -135,7 +140,7 @@ const formRef = useRef<HTMLFormElement>(null);
                 <div className="flex items-center h-[96px] w-full p-6 rounded-2xl bg-[#1B525E] ">
                   <div className="flex-1 flex items-start gap-4">
                     <div className="w-12 h-12  bg-[#45727d] rounded-sm  grid grid-col-3 content-center justify-center " >
-                    <Icon  icon="ci:location"  className="w-10 h-10 "/>
+                    <Icon  icon="ci:location"  className="w-10 h-10 " color="white"/>
                     </div>
                     <div>
                       <h3 className="text-lg font-bold text-white">Location</h3>
@@ -181,7 +186,7 @@ const formRef = useRef<HTMLFormElement>(null);
                   <button
                     type="submit"
                     disabled={loading}
-                    className={`w-full py-3 px-6 rounded-md ${ loading ? 'bg-green-300' :'bg-white' } text-[#111111] font-bold hover:bg-gray-100 transition-colors`}
+                    className={`w-full py-3 px-6 rounded-md ${ loading ? 'bg-green-600 text-white' :'bg-white' } text-[#111111] font-bold hover:bg-gray-100 transition-colors`}
                   >
                     {loading ?" Send Successfuly! " : "Submit"}
                   </button>

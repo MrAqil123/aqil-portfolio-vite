@@ -1,17 +1,17 @@
 'use client'
-import React, { useState } from 'react'
-import Slider from 'react-slick'
-import Image from 'next/image'
+import { useState } from 'react'
+import SliderComponent from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css' 
-import { portfolioinfo } from '@/app/api/data'
+import { portfolioinfo } from '../../../../app/api/data'
 import { Icon } from '@iconify/react/dist/iconify.js'
+const Slider = (SliderComponent as any).default ||  SliderComponent;
+
+
 const PortfolioCard = () => {
   
-  const [click , SetClick] = useState(false);
   const [likedId, setLikedId] = useState<number | null>(null)
     const [fullscreenImage, setFullscreenImage] = useState<string | null>(null)
-    const [hover , setHover]= useState(false)
 
   const settings = {
   autoplay: true,
@@ -54,7 +54,7 @@ const PortfolioCard = () => {
               <div className="relative    overflow-hidden h-full   rounded-t-2xl shadow-lg hover:shadow-2xl transition-shadow duration-500">
                 <div className='h-full bg-linear-180 p-22  from-black/20 to-transparent hidden'/>
                 <span className=' absolute w-full h-60 bg-linear-180 from-black/90 via-black/10 to-transparent'></span>
-                <Image
+                <img
                   src={item.image}
                   alt={item.alt}
                   width={1200}
@@ -104,10 +104,10 @@ window.open(item.link)
                 }} className={` text-xl bg-light-mode-a rounded  mt-4 w-full block py-2  justify-center px-6 `}>
                   preview 
                 </button>
-                 <span className=' relative  mt-2 flex justify-center w-full h-full ml-1  '>
+                 <span className=' relative   mt-2 flex justify-center w-40 h-full ml-1  '>
                                   {item.figma_prototype && <a href={`${item.figma_prototype}`}  className='py-2'><Icon icon='logos:figma' width={25} height={25}/>
                                   </a>}
-                {item.gitLink && <a href={`${item.gitLink}`}> <Icon icon='mdi:github' width={40} height={40}/></a>}
+                {item.gitLink && <a href={`${item.gitLink}`}> <Icon icon='ci:github' color='white'  width={40} height={40}/></a>}
                 </span>
                 </div>
               </div>
@@ -122,7 +122,7 @@ window.open(item.link)
           className="fixed inset-0 bg-black   bg-opacity-90 flex items-center justify-center z-50 cursor-zoom-out"
           onClick={() => setFullscreenImage(null)}
         >
-          <Image
+          <img
 
             src={fullscreenImage}
             alt="Fullscreen"

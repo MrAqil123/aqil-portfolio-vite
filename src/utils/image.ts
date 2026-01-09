@@ -1,5 +1,5 @@
 export const getImgPath = (path: string): string => {
-  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+  const basePath = import.meta.env.NEXT_PUBLIC_BASE_PATH || "";
   
   if (!basePath) {
     return path;  
@@ -20,7 +20,7 @@ export const getDataPath = (path: string): string => {
     }
   }
   
-  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+  const basePath = import.meta.env.NEXT_PUBLIC_BASE_PATH || "";
   if (!basePath) {
     return path;
   }

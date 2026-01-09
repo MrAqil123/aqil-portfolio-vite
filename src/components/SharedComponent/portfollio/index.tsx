@@ -1,5 +1,4 @@
-import React from 'react'
-import PortfolioCard from '@/components/SharedComponent/portfollio/Portfolio-card'
+import PortfolioCard from './Portfolio-card'
 
 const Portfolio = () => {
   return (
@@ -23,7 +22,7 @@ const Portfolio = () => {
           My Works
         </h2>
         <div className='pb-16  inline-flex' id='portfolio-section'>
-          <p className=' w-[1200px] font-normal text-grey dark:text-white/90'>
+          <p className=' w-[90vw] font-normal text-grey dark:text-white/90'>
             Here you can see some of the projects I’ve worked on. Each one shows a bit of my journey, what I’ve learned, and how I enjoy turning ideas into real, usable things. I’m always exploring new ways to grow, improve, and create better experiences.
           </p>
         </div>

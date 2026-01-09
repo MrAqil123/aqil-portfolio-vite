@@ -1,6 +1,5 @@
 "use client"
 import React, { useEffect, useRef, useState } from 'react'
-import Image from 'next/image'
 import './index.css'
 import GridRevealOverlay from '../../SharedComponent/GridRevealOverlay'
 import { Icon } from '@iconify/react/dist/iconify.js'
@@ -35,12 +34,11 @@ const About: React.FC = () => {
             <div className="about-img-wrapper rounded-2xl overflow-hidden shadow-xl fade-child" style={{ animationDelay: '0.08s' }}>
               <GridRevealOverlay spacing={14} thickness={1} color="255,255,255" spotSize={90} edgeRadius={62} transitionDuration={1000} className="w-full 2xl:h-[8  00px] h-[420px] md:h-[580px]">
                 <div className="relative w-full h-full">
-                  <Image
+                  <img
+                  width={100+'%'}
                     src="https://i.ibb.co/CK5k3LzR/aqil.png" 
                     alt="About image"
-                    fill
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    className="object-cover bg-top  transition-img h-full"
+                    className="object-cover object-top transition-img h-full"
                   />
                 </div>
               </GridRevealOverlay>
@@ -65,12 +63,10 @@ const About: React.FC = () => {
             <p className="col-span-3 text-sm md:text-base text-slate-600 mb-6">
     I build clean, efficient, and user-centered web solutions. Check out my CV to see my work and skills in action
             </p>
-             
-              <Image 
+              <img 
               src={"https://url-shortener.me/58L2"}
               alt='no picture'
-              fill
-                    sizes="(max-width: 38px) 10vw, 30vw"
+                    width={300}
                     className="object-contain scale-x-[-1] opacity-25 -z-20 bg-right translate-x-43 translate-y-26  transition-img "
               />
             </div>
