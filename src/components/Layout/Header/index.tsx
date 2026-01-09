@@ -1,15 +1,12 @@
-import { useContext, useEffect, useRef, useState } from 'react'
-import { Link, useLocation } from 'react-router-dom' 
+import { useEffect, useRef, useState } from 'react'
+import { Link } from 'react-router-dom' 
 import { Icon } from '@iconify/react'
 import { headerData } from '../Header/Navigation/menuData'
 import Logo from './Logo'
 import HeaderLink from '../Header/Navigation/HeaderLink'
 import MobileHeaderLink from '../Header/Navigation/MobileHeaderLink'
-import AuthDialogContext from '../../../app/context/AuthDialogContext'
 
 const Header: React.FC = () => {
-  const location = useLocation()
-  const pathUrl = location.pathname;
 
 
   const [navbarOpen, setNavbarOpen] = useState(false)
@@ -59,7 +56,6 @@ const Header: React.FC = () => {
     }
   }, [isSignInOpen, isSignUpOpen, navbarOpen])
 
-  const authDialog = useContext(AuthDialogContext)
 
   return (
     <header
@@ -70,9 +66,9 @@ const Header: React.FC = () => {
       }`}>
       <div className='container mx-auto max-w-6xl flex items-center justify-between p-6'>
         {/* در Vite از Link به جای تگ a استفاده می‌کنیم */}
-        <a href="/">
+        <Link to="/">
             <Logo />
-        </a>
+        </Link>
         
         <nav className='hidden lg:flex grow  items-center justify-center gap-6'>
           {headerData.map((item, index) => (
