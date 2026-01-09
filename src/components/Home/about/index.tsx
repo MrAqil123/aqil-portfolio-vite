@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import './index.css'
 import GridRevealOverlay from '../../SharedComponent/GridRevealOverlay'
 import { Icon } from '@iconify/react/dist/iconify.js'
+import { Link } from 'react-router-dom'
 const About: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement | null>(null)
   const [isVisible, setIsVisible] = useState(false)
@@ -71,10 +72,10 @@ const About: React.FC = () => {
               />
             </div>
             <div className='flex justify-start'>
-            <a href='../../../../public/images/Aqileftekhary.pdf'  className="inline-flex items-center gap-3 bg-light-mode-a hover:bg-dark-mode-a text-white px-4 py-2 sm:rounded-xl xl:rounded-full font-medium transition-image">
+            <Link to='../../../../public/images/Aqileftekhary.pdf'  className="inline-flex items-center gap-3 bg-light-mode-a hover:bg-dark-mode-a text-white px-4 py-2 sm:rounded-xl xl:rounded-full font-medium transition-image">
               Download CV
               <Icon icon={"ci:download"} className="text-white text-2xl"/>
-            </a>
+            </Link>
             <span className=' mx-2 px-6 underline decoration-2 decoration-dotted underline-offset-6 py-2'>
             <a href="#contact" className='text-light-mode-a font-bold '>Contact Now</a>
             </span></div>

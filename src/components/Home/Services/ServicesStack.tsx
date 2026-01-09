@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef } from "react";
+import  { useEffect, useRef } from "react";
 import services from "../../../app/api/servicesData";
 import styles from "./ServicesStack.module.css";
 

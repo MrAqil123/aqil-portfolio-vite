@@ -26,8 +26,8 @@ const HeaderLink: React.FC<{ item: HeaderItem }> = ({ item }) => {
       onMouseLeave={handleMouseLeave}
     >
       {/* در React Router از to استفاده می‌شود نه href */}
-      <a 
-        href={item.href} 
+      <Link 
+        to={item.href} 
         className={`decoration-2 underline-offset-4 duration-500 text-base flex py-2 font-normal hover:underline hover:decoration-dotted text-black dark:text-gray-200 
           ${path === item.href ? 'text-primary dark:text-primary!' : ''} 
           ${path.startsWith("/blog") && item.href === "/blog" ? "text-primary!" : ""} 
@@ -39,7 +39,7 @@ const HeaderLink: React.FC<{ item: HeaderItem }> = ({ item }) => {
             <path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="m7 10l5 5l5-5" />
           </svg>
         )}
-      </a>
+      </Link>
 
       {submenuOpen && (
         <div

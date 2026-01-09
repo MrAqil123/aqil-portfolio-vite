@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import styles from "./StackedCards.module.css";
 
 // Strongly typed card data
