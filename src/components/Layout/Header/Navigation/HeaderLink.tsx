@@ -1,13 +1,9 @@
 import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
 import type { HeaderItem } from '../../../../types/menu';
-
 const HeaderLink: React.FC<{ item: HeaderItem }> = ({ item }) => {
   const [submenuOpen, setSubmenuOpen] = useState(false);
   
   // در Vite/React Router، این یک آبجکت است
-  const location = useLocation();
-  const path = location.pathname;
 
   const handleMouseEnter = () => {
     if (item.submenu) {
@@ -25,13 +21,9 @@ const HeaderLink: React.FC<{ item: HeaderItem }> = ({ item }) => {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      {/* در React Router از to استفاده می‌شود نه href */}
-      <Link 
-        to={item.href} 
-        className={`decoration-2 underline-offset-4 duration-500 text-base flex py-2 font-normal hover:underline hover:decoration-dotted  text-gray-200 
-          ${path === item.href ? 'text-primary dark:text-primary!' : ''} 
-          ${path.startsWith("/blog") && item.href === "/blog" ? "text-primary!" : ""} 
-          ${path.startsWith("/portfolio") && item.href === "/portfolio" ? "text-primary! dark:text-primary!" : ""}`}
+      <a 
+        href={item.href} 
+        className={`decoration-2 underline-offset-4 duration-500 text-base flex py-2 font-normal hover:underline hover:decoration-dotted  text-gray-200`}
       >
         {item.label}
         {item.submenu && (
@@ -39,7 +31,7 @@ const HeaderLink: React.FC<{ item: HeaderItem }> = ({ item }) => {
             <path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="m7 10l5 5l5-5" />
           </svg>
         )}
-      </Link>
+      </a>
 
       {submenuOpen && (
         <div
@@ -48,17 +40,13 @@ const HeaderLink: React.FC<{ item: HeaderItem }> = ({ item }) => {
           data-aos-duration="400"
         >
           {item.submenu?.map((subItem, index) => (
-            <Link
+            <a
               key={index}
-              to={subItem.href} 
-              className={`block px-4 py-2 text-[15px] ${
-                path === subItem.href
-                  ? "bg-primary text-white"
-                  : "text-black hover:bg-gray-200 dark:hover:bg-midnight_text dark:text-white hover:text-dark dark:hover:text-white"
-              }`}
+              href={subItem.href} 
+              className={`block px-4 py-2 text-[15px]`}
             >
               {subItem.label}
-            </Link>
+            </a>
           ))}
         </div>
       )}
